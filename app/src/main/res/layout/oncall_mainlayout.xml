@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ContactImageContainer">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:id="@+id/contactImage"
+        android:src="@drawable/icona_chiamate"
+        android:layout_weight="10"
+        android:layout_marginBottom="30dp">
+
+    </ImageView>
+</LinearLayout>
+
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="70dp"
+    android:gravity="center_horizontal"
+    android:id="@+id/Contact_Info"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="80dp">
+
+    <TextView
+        style="@style/callTextfieldsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:text="xxx-xxxxxx\nsss"
+        android:id="@+id/Contact_Info_Textview"
+        android:lines="2"/>
+</RelativeLayout>
+
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="80dp"
+    android:layout_alignParentBottom="true"
+    android:id="@+id/Call_Incoming_Menu"
+    android:layout_centerHorizontal="true">
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:text="@string/accept_call_button_text"
+        android:id="@+id/ButtonAnswer"
+        android:background="#34b426"
+        android:layout_alignParentLeft="true"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:text="@string/reject_call_button_text"
+        android:id="@+id/ButtonReject"
+        android:layout_alignParentRight="true"
+        android:background="#f70000"/>
+</RelativeLayout>
+
+<LinearLayout
+    android:layout_width="350dp"
+    android:layout_height="70dp"
+    android:id="@+id/Call_Menu"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:visibility="visible">
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:text="@string/num_keyboard_call_button_text"
+        android:id="@+id/ButtonTastieraNumerica"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:text="@string/speaker_call_button_text"
+        android:id="@+id/ButtonVivavoce"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:text="@string/mute_call_button_text"
+        android:id="@+id/ButtonMuto"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:text="@string/bluetooth_call_button_text"
+        android:id="@+id/ButtonBluetoothDevice"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:text="@string/end_call_button_text"
+        android:id="@+id/ButtonEndCall"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>
+
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="80dp"
+    android:layout_alignParentBottom="true"
+    android:id="@+id/Call_Ended_Menu"
+    android:layout_centerHorizontal="true"
+    android:gravity="center"
+    android:visibility="gone">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/call_ended_text"
+        android:id="@+id/CallEndedTextview"
+        android:textColor="#ff0000"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
+</RelativeLayout>
+
+<TextView
+    style="@style/callTextfieldsStyle"
+    android:layout_width="120dp"
+    android:layout_height="50dp"
+    android:text="00:00"
+    android:id="@+id/Timer"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:visibility="invisible"/>
+
+</RelativeLayout>

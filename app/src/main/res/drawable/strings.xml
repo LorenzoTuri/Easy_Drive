@@ -1,0 +1,29 @@
+<resources>
+	<string name="app_name">Easy Drive</string>
+
+
+	<string name="call_ended_text"><u>Chiamata Terminata</u></string>
+	<string name="accept_call_button_text"><u>V</u></string>
+	<string name="reject_call_button_text"><u>X</u></string>
+	<string name="num_keyboard_call_button_text"><u>Numerical\nKeyboard</u></string>
+	<string name="speaker_call_button_text"><u>Speaker</u></string>
+	<string name="mute_call_button_text"><u>Mute</u></string>
+	<string name="bluetooth_call_button_text"><u>Bluetooth</u></string>
+	<string name="end_call_button_text"><u>End\nCall</u></string>
+
+
+	<string name="maps_button_text">Maps</string>
+	<string name="music_button_text">Music</string>
+	<string name="message_button_text">Message</string>
+	<string name="call_button_text">Call</string>
+
+
+	<string name="music_button_play_pause">PLAY/PAUSE</string>
+	<string name="music_button_next"> &gt;&gt; </string>
+	<string name="music_button_previous"> &lt;&lt;  </string>
+	<string name="music_title">Title of the song</string>
+	<string name="music_artist">Artist of the song</string>
+	<string name="music_album">Album of the song</string>
+
+	<string name="googleServerURL">https://maps.googleapis.com/maps/api/directions/</string>
+</resources>

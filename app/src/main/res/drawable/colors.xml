@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#0D47A1</color>
+	<color name="colorPrimaryDark">#1565C0</color>
+	<color name="colorAccent">#2595F0</color>
+
+	<color name="textfieldsBackground">#b9cece</color>
+	<color name="linecolor">#00BCFF</color>
+
+
+
+	<!-- tema iulian>
+		<color name="colorPrimary">#00796B</color>
+		<color name="colorPrimaryDark">#FBC02D</color>
+	-->
+
+</resources>
+

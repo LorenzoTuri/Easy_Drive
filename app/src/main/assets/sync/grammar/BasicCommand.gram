@@ -1,0 +1,11 @@
+#JSGF V1.0;
+
+grammar topMenuGrammar;
+
+public <MapsCommand> = <Keyword> maps;
+public <MusicCommand> = <Keyword> music;
+public <MessageCommand> = <Keyword> message;
+public <CallsCommand> = <Keyword> calls;
+public <CancelCommand> = <Keyword> annulla;
+
+public <Keyword> = keyphrase;
