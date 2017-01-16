@@ -1,5 +1,7 @@
 package viewManagers;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -27,10 +29,17 @@ public class TopMenuManager {
     ViewGroup MenuElementContainer;
     boolean shown = false;
 
-    public TopMenuManager(final ViewGroup root, final ViewGroup elementContainer, final ViewGroup MenuElementContainer){
+    public TopMenuManager(MainActivity mainActivity){
+
+        final MainActivity activity = mainActivity;
+
+        ViewGroup root = (ViewGroup)activity.findViewById(R.id.TopMenuContainer);
+        final ViewGroup elementContainer = (ViewGroup)activity.findViewById(R.id.ElementContainer);
+        ViewGroup menuElementContainer = (ViewGroup)activity.findViewById(R.id.OperationContainer);
+
         this.root = root;
         this.elementContainer = elementContainer;
-        this.MenuElementContainer = MenuElementContainer;
+        this.MenuElementContainer = menuElementContainer;
 
         ButtonMaps = root.findViewById(R.id.mapsButton);
         ButtonMusic = root.findViewById(R.id.musicButton);
@@ -50,11 +59,11 @@ public class TopMenuManager {
             @Override
             public void onClick(View v) {
                 elementContainer.removeAllViews();
-                elementContainer.addView(MainActivity.mapViewManager.getView(), 0);
+                elementContainer.addView(activity.mapViewManager.getView(), 0);
 
-	            ViewGroup.LayoutParams l = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                ViewGroup.LayoutParams l = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 MenuElementContainer.removeAllViews();
-                MenuElementContainer.addView(MainActivity.mapViewManager.getMenu(),l);
+                MenuElementContainer.addView(activity.mapViewManager.getMenu(), l);
             }
         });
 
@@ -63,23 +72,23 @@ public class TopMenuManager {
             @Override
             public void onClick(View v) {
                 elementContainer.removeAllViews();
-                elementContainer.addView(MainActivity.musicViewManager.getView(), 0);
+                elementContainer.addView(activity.musicViewManager.getView(), 0);
 
                 MenuElementContainer.removeAllViews();
-                MenuElementContainer.addView(MainActivity.musicViewManager.getMenu(),0);
+                MenuElementContainer.addView(activity.musicViewManager.getMenu(), 0);
             }
         });
 
+        ButtonMessages.setOnTouchListener(new OnTouchDesignButton());
         ButtonMessages.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 elementContainer.removeAllViews();
-                elementContainer.addView(MainActivity.messageViewManager.getView(), 0);
+                elementContainer.addView(activity.messageViewManager.getView(), 0);
 
                 MenuElementContainer.removeAllViews();
-                MenuElementContainer.addView(MainActivity.messageViewManager.getMenu(),0);
+                MenuElementContainer.addView(activity.messageViewManager.getMenu(), 0);
             }
         });
-        ButtonMessages.setOnTouchListener(new OnTouchDesignButton());
     }
 
     public boolean isOpen() {

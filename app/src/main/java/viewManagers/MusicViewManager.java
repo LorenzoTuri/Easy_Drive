@@ -1,10 +1,9 @@
 package viewManagers;
 
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.lorenzo.germana.easydrive.MainActivity;
@@ -19,20 +18,22 @@ import eventListeners.OnTouchDesignButton;
 public class MusicViewManager {
     ViewGroup root;
     ViewGroup menu;
-    ViewGroup musicplayercommands;
+    ViewGroup buttons;
     ViewGroup volume;
 
-    public MusicViewManager(ViewGroup root, ViewGroup menu, ViewGroup musicplayercommands,ViewGroup volume){
-        this.root = root;
-        this.menu = menu;
-        this.musicplayercommands = musicplayercommands;
-        this.volume = volume;
+    public MusicViewManager(final MainActivity activity){
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View ButtonPlayPause = musicplayercommands.findViewById(R.id.playButton);
-        View ButtonNext = musicplayercommands.findViewById(R.id.forwardButton);
-        View ButtonPrevious = musicplayercommands.findViewById(R.id.backwardButton);
-		View ButtonShuffle = musicplayercommands.findViewById(R.id.shuffleButton);
-	    View ButtonRepeat = musicplayercommands.findViewById(R.id.replayButton);
+        root = (ViewGroup)inflater.inflate(R.layout.tabmusic, null);
+        menu = (ViewGroup)inflater.inflate(R.layout.tabmusicmenu, null);
+        buttons = (ViewGroup)activity.findViewById(R.id.ButtonContainer);
+        volume = (ViewGroup)activity.findViewById(R.id.Volume);
+
+        View ButtonPlayPause = buttons.findViewById(R.id.playButton);
+        View ButtonNext = buttons.findViewById(R.id.forwardButton);
+        View ButtonPrevious = buttons.findViewById(R.id.backwardButton);
+		View ButtonShuffle = buttons.findViewById(R.id.shuffleButton);
+	    View ButtonRepeat = buttons.findViewById(R.id.replayButton);
 
         ButtonPlayPause.setOnClickListener(new OnClickListenerPlayer("togglepause"));
         ButtonPlayPause.setOnTouchListener(new OnTouchDesignButton());
@@ -58,12 +59,12 @@ public class MusicViewManager {
 			    else volumeBar.setVisibility(View.VISIBLE);
 		    }
 	    });
-	    volumeBar.setMax(MainActivity.musicManager.getMaxVolume());
-	    volumeBar.setProgress(MainActivity.musicManager.getCurrentVolume());
+	    volumeBar.setMax(activity.musicManager.getMaxVolume());
+	    volumeBar.setProgress(activity.musicManager.getCurrentVolume());
 	    volumeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 		    @Override
 		    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			    MainActivity.musicManager.setVolume(progress);
+			    activity.musicManager.setVolume(progress);
 		    }
 		    public void onStartTrackingTouch(SeekBar seekBar) {}
 		    public void onStopTrackingTouch(SeekBar seekBar) {}

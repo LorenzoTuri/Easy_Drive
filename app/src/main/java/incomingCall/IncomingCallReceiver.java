@@ -3,15 +3,24 @@ package incomingCall;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import Interfaces.Destroyable;
+
 /**
  * Questa classe si occupa di intercettare il segnale di chiamata e di visualizzare una particolare schermata.
  */
-public class IncomingCallReceiver extends BroadcastReceiver{
+public class IncomingCallReceiver extends BroadcastReceiver implements Destroyable{
     private String MyTag = "IncomingCallReceiver";
+    private Context context;
+
+    public IncomingCallReceiver(Context context){
+        this.context = context;
+        context.registerReceiver(this, new IntentFilter("android.intent.action.PHONE_STATE"));
+    }
     @Override
     public void onReceive(Context context, Intent intent)
     {
@@ -28,4 +37,8 @@ public class IncomingCallReceiver extends BroadcastReceiver{
         }
     }
 
+	@Override
+	public void onDestroy() {
+		context.unregisterReceiver(this);
+	}
 }

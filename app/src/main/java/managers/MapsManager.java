@@ -36,13 +36,15 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import Interfaces.Destroyable;
 import dataContainer.step;
 
 /**
  * Created by loren on 10/05/2016.
  */
-public class MapsManager implements View.OnClickListener, OnMapReadyCallback {
+public class MapsManager implements View.OnClickListener, OnMapReadyCallback, Destroyable {
 	private String MyTag = "MapsManager";
+	Context context;
 
 	GoogleMap map;
 	LocationManager lm;
@@ -55,9 +57,11 @@ public class MapsManager implements View.OnClickListener, OnMapReadyCallback {
 	private double Longitude = 11.33;
 	private LatLng StartPointFago = new LatLng(Latitude, Longitude);
 
-	public MapsManager(){
-		lm = (LocationManager)EasyDrive.getContext().getSystemService(Context.LOCATION_SERVICE);
+	public MapsManager(Context context){
+		this.context = context;
+		lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
 	}
+
 	public void setDestinationEditText(EditText e){this.editText = e;}
 
 	private void  askForRequest(final String origin, final String destination){
@@ -192,5 +196,10 @@ public class MapsManager implements View.OnClickListener, OnMapReadyCallback {
 
 	public boolean isMapReady(){
 		return mapReady;
+	}
+
+	@Override
+	public void onDestroy() {
+
 	}
 }

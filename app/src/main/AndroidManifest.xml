@@ -10,6 +10,7 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 	<uses-feature
 		android:glEsVersion="0x00020000"
@@ -44,6 +45,9 @@
 
 			<!-- android:theme="@android:style/Theme.Material.Light.NoActionBar.Fullscreen" -->
 		</activity>
+		<service android:name=".MusicPlayerService">
+
+		</service>
 		<!--
              The API key for Google MapsViewManager-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

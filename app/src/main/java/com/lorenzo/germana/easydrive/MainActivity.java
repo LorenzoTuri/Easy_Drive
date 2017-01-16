@@ -24,76 +24,58 @@ import com.google.android.gms.maps.SupportMapFragment;
 public class MainActivity extends FragmentActivity {
     private String MyTag = "MainActivity";
 
-    public static MapsViewManager mapViewManager;
-    public static MusicViewManager musicViewManager;
-    public static MessageViewManager messageViewManager;
+    public MapsViewManager mapViewManager;
+    public MusicViewManager musicViewManager;
+    public MessageViewManager messageViewManager;
+    public TopMenuManager topMenuManager;
 
-    public static TopMenuManager topMenuManager;
-
-	public static MapsManager mapsManager;
-    public static MusicManager musicManager;
+    public MusicManager musicManager;
 
     IncomingCallReceiver phoneReceiver;
-
-    Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+	    Log.i(MyTag, "I'm creating the MusicManager");
+	    musicManager = new MusicManager(this);
+        /* MAYBE NOT NECESSARY ANYMORE?
         Log.i(MyTag, "I'm registering the calls receiver");
-        phoneReceiver = new IncomingCallReceiver();
-        registerReceiver(phoneReceiver, new IntentFilter("android.intent.action.PHONE_STATE"));
+        phoneReceiver = new IncomingCallReceiver(this);
+		*/
 
         Log.i(MyTag, "I'm creating the MapsViewManager");
-	    mapsManager = new MapsManager();
-        musicManager = new MusicManager();
-	    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        ViewGroup mapsView = (ViewGroup)inflater.inflate(R.layout.tabmaps, null);
-        ViewGroup mapsmenu = (ViewGroup)inflater.inflate(R.layout.tabmapsmenu, null);
-        mapViewManager = new MapsViewManager(mapsView, mapsmenu);
-
+        mapViewManager = new MapsViewManager(this);
         Log.i(MyTag,"I'm creating the MusicViewManager");
-        ViewGroup musicView = (ViewGroup)inflater.inflate(R.layout.tabmusic, null);
-        ViewGroup musicmenu = (ViewGroup)inflater.inflate(R.layout.tabmusicmenu, null);
-        ViewGroup musicbuttons = (ViewGroup)findViewById(R.id.ButtonContainer);
-        ViewGroup volume = (ViewGroup)findViewById(R.id.Volume);
-        musicViewManager = new MusicViewManager(musicView,musicmenu,musicbuttons,volume);
-
+        musicViewManager = new MusicViewManager(this);
         Log.i(MyTag,"I'm creating the MessageViewManager");
-        ViewGroup messagesView = (ViewGroup)inflater.inflate(R.layout.tabmessage, null);
-        ViewGroup messagesmenu = (ViewGroup)inflater.inflate(R.layout.tabmessagemenu, null);
-        messageViewManager = new MessageViewManager(messagesView,messagesmenu);
-
+        messageViewManager = new MessageViewManager(this);
         Log.i(MyTag,"I'm creating the TopMenuManager");
-        ViewGroup topmenucontainer = (ViewGroup)findViewById(R.id.TopMenuContainer);
-        ViewGroup elementcontainer = (ViewGroup)findViewById(R.id.ElementContainer);
-        ViewGroup menuelementscontainer = (ViewGroup)findViewById(R.id.OperationContainer);
-        topMenuManager = new TopMenuManager(topmenucontainer,elementcontainer, menuelementscontainer);
+        topMenuManager = new TopMenuManager(this);
 
-        Log.i(MyTag, "Initializing the maps function (map creation)");
-        //avvio le funzioni di google maps
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(mapsManager);
 
+	    /* DEACTIVATED FOR THE TIME BEING
         new Runnable(){
+            Intent serviceIntent;
             public void run() {
                 Log.i(MyTag,"I'm starting the speech recognition service");
                 serviceIntent = new Intent(EasyDrive.getContext(), SpeechRecognitionService.class);
                 startService(serviceIntent);
             }
-        }.run();
+        }.run();*/
     }
 
     @Override
     public void onDestroy(){
-        Log.i(MyTag,"I'm going to be stopped");
-        super.onDestroy();
-        stopService(serviceIntent);
-        unregisterReceiver(phoneReceiver);
+	    super.onDestroy();
+
+	    Log.i(MyTag, "I'm Stopping");
+        //stopService(serviceIntent);
+	    phoneReceiver.onDestroy();
+	    mapViewManager.onDestroy();
+	    musicManager.onDestroy();
     }
 }
