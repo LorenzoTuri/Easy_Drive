@@ -63,9 +63,6 @@ public class MainActivity extends FragmentActivity {
         Log.i(MyTag,"I'm creating the TopMenuManager");
         topMenuManager = new TopMenuManager(this);
 
-
-        musicViewManager.setSongList(musicManager.getSongList());
-
 	    /* DEACTIVATED FOR THE TIME BEING
         new Runnable(){
             Intent serviceIntent;

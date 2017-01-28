@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -44,19 +45,19 @@ public class MusicViewManager {
 		View ButtonShuffle = buttons.findViewById(R.id.shuffleButton);
 	    View ButtonRepeat = buttons.findViewById(R.id.replayButton);
 
-        ButtonPlayPause.setOnClickListener(new OnClickListenerPlayer("togglepause"));
+        ButtonPlayPause.setOnClickListener(new OnClickListenerPlayer("togglepause",activity));
         ButtonPlayPause.setOnTouchListener(new OnTouchDesignButton());
 
-        ButtonNext.setOnClickListener(new OnClickListenerPlayer("next"));
+        ButtonNext.setOnClickListener(new OnClickListenerPlayer("next",activity));
         ButtonNext.setOnTouchListener(new OnTouchDesignButton());
 
-        ButtonPrevious.setOnClickListener(new OnClickListenerPlayer("previous"));
+        ButtonPrevious.setOnClickListener(new OnClickListenerPlayer("previous",activity));
         ButtonPrevious.setOnTouchListener(new OnTouchDesignButton());
 
-	    ButtonShuffle.setOnClickListener(new OnClickListenerPlayer("shuffle"));
+	    ButtonShuffle.setOnClickListener(new OnClickListenerPlayer("shuffle",activity));
 	    ButtonShuffle.setOnTouchListener(new OnTouchDesignButton());
 
-	    ButtonRepeat.setOnClickListener(new OnClickListenerPlayer("repeat"));
+	    ButtonRepeat.setOnClickListener(new OnClickListenerPlayer("repeat",activity));
 	    ButtonRepeat.setOnTouchListener(new OnTouchDesignButton());
 
 	    View volumeIcon = volume.findViewById(R.id.volumeIcon);
@@ -78,6 +79,35 @@ public class MusicViewManager {
 		    public void onStartTrackingTouch(SeekBar seekBar) {}
 		    public void onStopTrackingTouch(SeekBar seekBar) {}
 	    });
+
+	    View spotifyIcon = menu.findViewById(R.id.spotifyIcon);
+	    View musicIcon = menu.findViewById(R.id.musicIcon);
+	    View backButton = menu.findViewById(R.id.musicBack);
+	    EditText searchMusic = (EditText) menu.findViewById(R.id.music_search);
+
+		musicIcon.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setSongList(activity.musicManager.getSongList());
+				activity.findViewById(R.id.choseProviderLayer).setVisibility(View.INVISIBLE);
+				activity.findViewById(R.id.musicListContainer).setVisibility(View.VISIBLE);
+			}
+		});
+	    spotifyIcon.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    setSongList(new SongList());
+			    activity.findViewById(R.id.choseProviderLayer).setVisibility(View.INVISIBLE);
+			    activity.findViewById(R.id.musicListContainer).setVisibility(View.VISIBLE);
+		    }
+	    });
+	    backButton.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+			    activity.findViewById(R.id.choseProviderLayer).setVisibility(View.VISIBLE);
+			    activity.findViewById(R.id.musicListContainer).setVisibility(View.INVISIBLE);
+		    }
+	    });
     }
 
     public View getView(){
@@ -91,6 +121,7 @@ public class MusicViewManager {
     public void setSongList(SongList songList){
         final boolean a = false;
         ViewGroup temp = (ViewGroup) menu.findViewById(R.id.songList);
+	    temp.removeAllViews();
         for (int i=0;i<songList.size();i++){
             Song song = songList.get(i);
             TextView s = new TextView(activity);

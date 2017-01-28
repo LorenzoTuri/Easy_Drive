@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.lorenzo.germana.easydrive.EasyDrive;
+import com.lorenzo.germana.easydrive.MainActivity;
+import com.lorenzo.germana.easydrive.R;
 
 /**
  * Created by loren on 13/04/2016.
@@ -13,25 +15,38 @@ import com.lorenzo.germana.easydrive.EasyDrive;
 public class OnClickListenerPlayer implements View.OnClickListener {
 	private String MyTag = "OnClickListenerPlayer";
     String command;
+	MainActivity activity;
 
-    public OnClickListenerPlayer(String command) {
+    public OnClickListenerPlayer(String command, MainActivity activity) {
         this.command = command;
+	    this.activity = activity;
     }
 
     public void onClick(View v) {
-	    Log.i(MyTag,"Received a click. Sending intent with "+command);
-	    Intent i = new Intent("com.android.music.musicservicecommand");
-        i.putExtra("command", command);
-        EasyDrive.getContext().sendBroadcast(i);
+	    //used to see if a layout change is needed
+	    boolean isActive = false;
+		switch (command){
+			case "togglepause":
+				activity.musicSrv.togglePause();
+				if (activity.musicSrv.isPlaying()) isActive = true;
+				break;
+			case "next":
+				activity.musicSrv.nextSong();
+				break;
+			case "previous":
+				activity.musicSrv.previousSong();
+				break;
+			case "shuffle":
+				if (activity.musicSrv.isShuffling()) isActive = true;
+				activity.musicSrv.toggleShuffle();
+				break;
+			case "repeat":
+				if (activity.musicSrv.isLooping()) isActive = true;
+				activity.musicSrv.toggleRepeat();
+				break;
+		}
+	    if (isActive){
+		    v.setBackgroundDrawable((activity.getResources().getDrawable(R.drawable.roundshapeactive)));
+	    }
     }
-	/* comandi possibili
-		public static final String SERVICECMD = "com.android.music.musicservicecommand";
-		public static final String CMDNAME = "command";
-		public static final String CMDTOGGLEPAUSE = "togglepause";
-		public static final String CMDSTOP = "stop";
-		public static final String CMDPAUSE = "pause";
-		public static final String CMDPLAY = "play";
-		public static final String CMDPREVIOUS = "previous";
-		public static final String CMDNEXT = "next";
-		*/
 }

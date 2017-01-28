@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import Music.Song;
 import Music.SongList;
@@ -56,6 +57,34 @@ public class MusicPlayerService extends Service implements
 	public void setSong(int n){
 		if (n < songs.size()) songPos = n;
 	}
+
+	public void nextSong(){
+		onCompletion(player);
+	}
+
+	public void previousSong(){
+		songPos--;
+		playSong();
+	}
+
+	public void togglePause(){
+		if (player.isPlaying()) player.pause();
+		else player.start();
+	}
+
+	public void toggleShuffle(){
+		shuffle = !shuffle;
+	}
+
+	public void toggleRepeat(){
+		loop = !loop;
+	}
+
+	public boolean isShuffling(){ return shuffle; }
+
+	public boolean isLooping(){ return loop; }
+
+	public boolean isPlaying(){ return player.isPlaying(); }
 
 	public void playSong(){
 		player.reset();
