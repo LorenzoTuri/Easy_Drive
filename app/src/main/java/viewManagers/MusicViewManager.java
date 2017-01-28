@@ -1,14 +1,20 @@
 package viewManagers;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.lorenzo.germana.easydrive.MainActivity;
 import com.lorenzo.germana.easydrive.R;
 
+import Music.Song;
+import Music.SongList;
 import eventListeners.OnClickListenerPlayer;
 import eventListeners.OnTouchDesignButton;
 
@@ -21,7 +27,10 @@ public class MusicViewManager {
     ViewGroup buttons;
     ViewGroup volume;
 
+    MainActivity activity;
+
     public MusicViewManager(final MainActivity activity){
+        this.activity = activity;
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         root = (ViewGroup)inflater.inflate(R.layout.tabmusic, null);
@@ -77,5 +86,24 @@ public class MusicViewManager {
 
     public View getMenu(){
         return menu;
+    }
+
+    public void setSongList(SongList songList){
+        final boolean a = false;
+        ViewGroup temp = (ViewGroup) menu.findViewById(R.id.songList);
+        for (int i=0;i<songList.size();i++){
+            Song song = songList.get(i);
+            TextView s = new TextView(activity);
+            s.setText(song.toString());
+            final int finalI = i;
+            s.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    activity.musicSrv.setSong(finalI);
+                    activity.musicSrv.playSong();
+                }
+            });
+            temp.addView(s);
+        }
     }
 }

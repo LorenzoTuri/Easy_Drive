@@ -6,12 +6,6 @@ import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.SeekBar;
-
-import com.lorenzo.germana.easydrive.R;
 
 import java.util.Collections;
 
@@ -40,11 +34,7 @@ public class MusicManager implements Destroyable{
 		songByAlbum = new SongMap(new AlbumComparator());
 		songByArtist = new SongMap(new ArtistComparator());
 
-		getSongList();
-		System.out.println(songList);
-		System.out.println(songByAlbum);
-		System.out.println(songByArtist);
-		System.exit(0);
+		initializeLists();
 	}
 
 	public void setVolume(int volume){
@@ -64,7 +54,7 @@ public class MusicManager implements Destroyable{
 		return volume;
 	}
 
-	public void getSongList(){
+	public void initializeLists(){
 		ContentResolver musicResolver = context.getContentResolver();
 		Uri musicUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 		Cursor musicCursor = musicResolver.query(musicUri, null, null, null, null);
@@ -93,5 +83,9 @@ public class MusicManager implements Destroyable{
 		Collections.sort(songList,songList.comparator);
 		for(Object key:songByAlbum.keySet()) Collections.sort(songByAlbum.get(key),songByAlbum.comparator);
 		for(Object key:songByArtist.keySet()) Collections.sort(songByArtist.get(key),songByArtist.comparator);
+	}
+
+	public SongList getSongList(){
+		return songList;
 	}
 }

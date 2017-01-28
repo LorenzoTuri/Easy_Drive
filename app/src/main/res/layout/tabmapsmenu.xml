@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
+    android:background="@color/colorPrimary"
     android:id="@+id/MapsMenuLayout">
 
     <TextView
@@ -14,7 +14,8 @@
         android:id="@+id/Destination"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"/>
 
     <Space
         android:layout_width="20px"

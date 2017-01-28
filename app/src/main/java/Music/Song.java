@@ -28,4 +28,9 @@ public class Song {
 	public String getAlbum(){
 		return album;
 	}
+
+	@Override
+	public String toString() {
+		return title+" "+artist;
+	}
 }
