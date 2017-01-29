@@ -19,6 +19,9 @@ import Music.SongList;
 import eventListeners.OnClickListenerPlayer;
 import eventListeners.OnTouchDesignButton;
 
+import static com.lorenzo.germana.easydrive.R.id.musicIcon;
+import static com.lorenzo.germana.easydrive.R.id.spotifyIcon;
+
 /**
  * Created by loren on 13/04/2016.
  */
@@ -80,34 +83,9 @@ public class MusicViewManager {
 		    public void onStopTrackingTouch(SeekBar seekBar) {}
 	    });
 
-	    View spotifyIcon = menu.findViewById(R.id.spotifyIcon);
-	    View musicIcon = menu.findViewById(R.id.musicIcon);
-	    View backButton = menu.findViewById(R.id.musicBack);
-	    EditText searchMusic = (EditText) menu.findViewById(R.id.music_search);
+	    setSongList(activity.musicManager.getSongList());
 
-		musicIcon.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				setSongList(activity.musicManager.getSongList());
-				activity.findViewById(R.id.choseProviderLayer).setVisibility(View.INVISIBLE);
-				activity.findViewById(R.id.musicListContainer).setVisibility(View.VISIBLE);
-			}
-		});
-	    spotifyIcon.setOnClickListener(new View.OnClickListener() {
-		    @Override
-		    public void onClick(View v) {
-			    setSongList(new SongList());
-			    activity.findViewById(R.id.choseProviderLayer).setVisibility(View.INVISIBLE);
-			    activity.findViewById(R.id.musicListContainer).setVisibility(View.VISIBLE);
-		    }
-	    });
-	    backButton.setOnClickListener(new View.OnClickListener() {
-		    @Override
-		    public void onClick(View v) {
-			    activity.findViewById(R.id.choseProviderLayer).setVisibility(View.VISIBLE);
-			    activity.findViewById(R.id.musicListContainer).setVisibility(View.INVISIBLE);
-		    }
-	    });
+	    EditText searchMusic = (EditText) menu.findViewById(R.id.musicSearch);
     }
 
     public View getView(){
